@@ -1,0 +1,14 @@
+C:\Users\pavank\source\repos\CSUSAPP.Common\bin\Debug\net8.0\CSUSAPP.Common.deps.json
+C:\Users\pavank\source\repos\CSUSAPP.Common\bin\Debug\net8.0\CSUSAPP.Common.runtimeconfig.json
+C:\Users\pavank\source\repos\CSUSAPP.Common\bin\Debug\net8.0\CSUSAPP.Common.dll
+C:\Users\pavank\source\repos\CSUSAPP.Common\bin\Debug\net8.0\CSUSAPP.Common.pdb
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.csproj.AssemblyReference.cache
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.AssemblyInfoInputs.cache
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.AssemblyInfo.cs
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.csproj.CoreCompileInputs.cache
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.dll
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\refint\CSUSAPP.Common.dll
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.pdb
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\CSUSAPP.Common.genruntimeconfig.cache
+C:\Users\pavank\source\repos\CSUSAPP.Common\obj\Debug\net8.0\ref\CSUSAPP.Common.dll
