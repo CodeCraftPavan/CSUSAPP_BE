@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CSUSAPP_BE/CSUSAPP/bin/Debug/net8.0
+/CSUSAPP_BE/CSUSAPP/obj
