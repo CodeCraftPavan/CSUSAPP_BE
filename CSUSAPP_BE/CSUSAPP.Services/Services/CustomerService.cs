@@ -169,14 +169,19 @@ namespace CSUSAPP.Services.Services
             return response;
         }
 
-        public async Task<List<EditCustomerDto>> GetCustomers()
+        public async Task<PaginatedResult<EditCustomerDto>> GetCustomers(paginationDTO pagination)
         {
+            var totalCount = await _appDataContext.CustomerDetails.CountAsync();
+
             var customers = await _appDataContext.CustomerDetails
                 .Include(c => c.SoldServices)
                 .Include(c => c.Associates)
+                .OrderBy(c => c.Id)
+                .Skip((pagination.pageNumber - 1) * pagination.pageSize)
+                .Take(pagination.pageSize)
                 .ToListAsync();
 
-            return customers.Select(c => new EditCustomerDto
+            var customerDto = customers.Select(c => new EditCustomerDto
             {
                 Id = c.Id,
                 Abbrevation = c.Abbrevation,
@@ -200,6 +205,17 @@ namespace CSUSAPP.Services.Services
                     ContactInformation = a.ContactInformation
                 }).ToList()
             }).ToList();
+
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pagination.pageSize);
+
+            return new PaginatedResult<EditCustomerDto>
+            {
+                PageNumber = pagination.pageNumber,
+                PageSize = pagination.pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                Items = customerDto
+            };
         }
 
         public async Task<List<CustomerDetailsDto>> SearchCustomers(string searchTearm)

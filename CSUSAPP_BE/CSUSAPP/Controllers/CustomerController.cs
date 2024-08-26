@@ -1,4 +1,5 @@
 ﻿using CSUSAPP.Common.Auth;
+using CSUSAPP.Common.DTO;
 using CSUSAPP.Common.Helpers;
 using CSUSAPP.DataAccess.Entities;
 using CSUSAPP.Services.DTO;
@@ -38,11 +39,11 @@ namespace CSUSAPP.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Get-Customers")]
+        [HttpPost("Get-Customers")]
         [Authorize]
-        public async Task<IActionResult> GetCustomer()
+        public async Task<IActionResult> GetCustomer([FromBody] paginationDTO pagination)
         {
-            var result = await _customerService.GetCustomers();
+            var result = await _customerService.GetCustomers(pagination);
             return Ok(result);
         }
 

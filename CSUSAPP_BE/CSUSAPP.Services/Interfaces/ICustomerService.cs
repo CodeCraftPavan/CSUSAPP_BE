@@ -13,7 +13,7 @@ namespace CSUSAPP.Services.Interfaces
     {
         public Task<ApiResponse> AddCustomer(CustomerDetailsDto request);
         public Task<ApiResponse> EditCustomer(EditCustomerDto request, Guid userId);
-        public Task<List<EditCustomerDto>> GetCustomers();
+        public Task<PaginatedResult<EditCustomerDto>> GetCustomers(paginationDTO pagination);
         public Task<List<CustomerDetailsDto>> SearchCustomers(string searchTearm);
     }
 }
