@@ -1,0 +1,6 @@
+@CSUSAPP_HostAddress = http://localhost:5211
+
+GET {{CSUSAPP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
