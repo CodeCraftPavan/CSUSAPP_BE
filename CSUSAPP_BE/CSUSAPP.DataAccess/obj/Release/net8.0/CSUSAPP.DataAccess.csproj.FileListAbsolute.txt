@@ -1,0 +1,14 @@
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\bin\Release\net8.0\CSUSAPP.DataAccess.deps.json
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\bin\Release\net8.0\CSUSAPP.DataAccess.runtimeconfig.json
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\bin\Release\net8.0\CSUSAPP.DataAccess.dll
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\bin\Release\net8.0\CSUSAPP.DataAccess.pdb
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.csproj.AssemblyReference.cache
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.AssemblyInfoInputs.cache
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.AssemblyInfo.cs
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.dll
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\refint\CSUSAPP.DataAccess.dll
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.pdb
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\CSUSAPP.DataAccess.genruntimeconfig.cache
+C:\Users\pavank\source\repos\CSUSAPP.DataAccess\obj\Release\net8.0\ref\CSUSAPP.DataAccess.dll
