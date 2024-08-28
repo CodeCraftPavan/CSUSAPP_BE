@@ -16,6 +16,7 @@ namespace CSUSAPP.DataAccess.Entities
         public string ServiceName { get; set; }
         public DateTime SaleDate { get; set; }
         public ServiceStatus Status { get; set;}
+        public Guid UpdatedBy { get; set; }
 
         // Foreign Key
         public long CustomerDetailsId { get; set; }

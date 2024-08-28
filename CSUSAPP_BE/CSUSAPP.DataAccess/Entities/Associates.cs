@@ -16,6 +16,7 @@ namespace CSUSAPP.DataAccess.Entities
         public string AssociateName { get; set; }
         public Roles Role { get; set; }
         public string ContactInformation { get; set; }
+        public Guid UpdatedBy { get; set; }
 
         // Foreign Key
         public long CustomerDetailsId { get; set; }

@@ -11,6 +11,7 @@ using System.Text;
 using Serilog;
 
 using System.Text.Json.Serialization;
+using CSUSAPP.DataAccess.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ builder.Services.AddScoped<IAuthmanagementService, AuthManagementService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAddServicesService, AddServicesService>();
+builder.Services.AddScoped<ISoldServicesService, SoldServicesService>();
+builder.Services.AddScoped<IAssociateService, AssociateService>();
 builder.Services.AddScoped<JwtSigner, JwtSigner>();
 
 builder.Services.AddHttpContextAccessor();

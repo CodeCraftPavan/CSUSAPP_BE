@@ -44,6 +44,9 @@ namespace CSUSAPP.DataAccess.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerDetailsId");
@@ -161,6 +164,9 @@ namespace CSUSAPP.DataAccess.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
