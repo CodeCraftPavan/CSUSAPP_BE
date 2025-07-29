@@ -5,7 +5,7 @@
 namespace CSUSAPP.Services.DTO
 {
     /// <summary>
-    /// Represents a placeholder class for the CSUSAPP.Services.DTO namespace .
+    /// Represents a placeholder class for the CSUSAPP.Services.DTO namespace.
     /// </summary>
     internal class Class1
     {
