@@ -1,38 +1,48 @@
-﻿using CSUSAPP.Common.DTO;
+﻿// <copyright file="AddServicesService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.DTO;
 using CSUSAPP.DataAccess.DataContext;
-using CSUSAPP.DataAccess.Entities;
 using CSUSAPP.Services.DTO;
 using CSUSAPP.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Services.Services
 {
+    /// <summary>
+    /// Implementation of the IAddServices Service.
+    /// </summary>
     public class AddServicesService : IAddServicesService
     {
         private readonly AppDataContext _appDataContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddServicesService"/> class.
+        /// </summary>
+        /// <param name="appDataContext">appDataContext.</param>
         public AddServicesService(AppDataContext appDataContext)
         {
             _appDataContext = appDataContext;
         }
+
+        /// <inheritdoc/>
         public async Task<ApiResponse> AddServices(AddServiceDTO request, Guid userId)
         {
-            var roleCheck = await _appDataContext.UsersData.Where(x => x.UserId == userId).Select(x => x.roles).FirstOrDefaultAsync();
+            var roleCheck = await _appDataContext.UsersData.Where(x => x.UserId == userId).Select(x => x.Roles).FirstOrDefaultAsync();
             if (roleCheck != DataAccess.Entities.Roles.Admin)
             {
                 throw new ArgumentException("Forbidden. Only admins can add services.");
-                //return Forbid(new { message = "Forbidden. Only admins can add services." });
+
+                // return Forbid(new { message = "Forbidden. Only admins can add services." });
             }
+
             var newService = new DataAccess.Entities.Services
             {
                 ServiceName = request.ServiceName,
                 CreatedDate = DateTime.UtcNow,
-                CreatedByUserId = userId
+                CreatedByUserId = userId,
             };
 
             // Add and save to the database
@@ -42,11 +52,12 @@ namespace CSUSAPP.Services.Services
             {
                 Statuscode = Convert.ToInt32(HttpStatusCode.OK),
                 Data = newService,
-                Success = true
+                Success = true,
             };
             return response;
         }
 
+        /// <inheritdoc/>
         public async Task<ApiResponse> GetAvailableServicesForCustomers(long customerId)
         {
             // Check if the customer exists
@@ -57,24 +68,24 @@ namespace CSUSAPP.Services.Services
             if (customer == null)
             {
                 throw new ArgumentException("Customer is not available.");
-                //return NotFound(new { message = "Customer not found." });
-            }           
+            }
+
             var soldServices = customer.SoldServices.Select(s => s.ServiceName).ToList();
-            
+
             var availableServices = await _appDataContext.Services
                 .Where(s => !soldServices.Contains(s.ServiceName))
                 .Select(s => new AvailableServiceDto
                 {
                     Id = s.Id,
                     ServiceName = s.ServiceName,
-                    CreatedDate = s.CreatedDate
+                    CreatedDate = s.CreatedDate,
                 })
                 .ToListAsync();
             var response = new ApiResponse()
             {
                 Statuscode = Convert.ToInt32(HttpStatusCode.OK),
                 Data = availableServices,
-                Success = true
+                Success = true,
             };
             return response;
         }

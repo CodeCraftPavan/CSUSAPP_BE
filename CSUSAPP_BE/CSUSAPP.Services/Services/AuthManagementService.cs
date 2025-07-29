@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿// <copyright file="AuthManagementService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
 using CSUSAPP.Common.Helpers;
 using CSUSAPP.Common.DTO;
 using CSUSAPP.Services.DTO;
-using System.Text;
-using System.Threading.Tasks;
 using CSUSAPP.DataAccess.Entities;
 using CSUSAPP.DataAccess.DataContext;
 using Microsoft.EntityFrameworkCore;
@@ -16,18 +14,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CSUSAPP.Services.Services
 {
+    /// <summary>
+    /// Implementation of the IAuthManagement Service.
+    /// </summary>
     public class AuthManagementService : IAuthmanagementService
     {
         private readonly AppDataContext _appDataContext;
         private readonly JwtSigner _jwtSigner;
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthManagementService"/> class.
+        /// </summary>
+        /// <param name="appDataContext">appDataContext.</param>
+        /// <param name="jwtSigner">jwtSigner.</param>
+
         public AuthManagementService(AppDataContext appDataContext, JwtSigner jwtSigner) 
         {
             _appDataContext = appDataContext;
             _jwtSigner = jwtSigner;
         }
-        
 
+        /// <inheritdoc/>
         public async Task<ApiResponse> SignInUser(LoginRequest request)
         {
             var response = new ApiResponse();
@@ -41,17 +48,18 @@ namespace CSUSAPP.Services.Services
                 }
                 else
                 {
-                    var UserDetails = await _appDataContext.UsersData.Where(x => x.userEMailId == request.UserEmail).FirstOrDefaultAsync();
+                    UsersData? userDetails = await _appDataContext.UsersData.Where(x => x.UserEmailId == request.UserEmail).FirstOrDefaultAsync();
 
-                    if (UserDetails == null)
+                    if (userDetails == null)
                     {
                         msg = "Entered email ID is not registered, Please Sign up.";
                         throw new ValidationException(msg);
                     }
-                    if (UserDetails.password != null)
+
+                    if (userDetails.Password != null)
                     {
                         var cu = new PasswordHashingService();
-                        bool pwdCheck = cu.VerifyPassword(request.Password, UserDetails.password, UserDetails.salt);
+                        bool pwdCheck = cu.VerifyPassword(request.Password, userDetails.Password, userDetails.Salt);
                         if (pwdCheck == true)
                         {
                             msg = "Authentication completed sucessfully.";
@@ -60,47 +68,31 @@ namespace CSUSAPP.Services.Services
                         {
                             msg = "Authentication failed. Please enter the right password.";
                             throw new ValidationException(msg);
-
                         }
                     }
 
                     var login = await _appDataContext.LoginDetails.Where(x => x.EmailId == request.UserEmail /*x.Status == LoginStatus.pending*/).FirstOrDefaultAsync();
-                    //if (login == null)
-                    //{
-                    //    msg = "User is already logged in.";
-                    //    throw new ValidationException(msg);
-                    //}
-                    //else
-                    //{
-                        var userData = await _appDataContext.UsersData.Where(x => x.userEMailId == request.UserEmail).FirstOrDefaultAsync();
-                        sessionToken = _jwtSigner.GenerateJwtToken(userData.UserId.ToString(), new List<string> { "User" });                        
-                        login.SessionToken = sessionToken;
-                        login.Status = LoginStatus.completed;
-                        login.LoggedInAt = DateTime.Now;
-                        _appDataContext.Update(login);
-                        await _appDataContext.SaveChangesAsync();
-                        var res = new AuthUserResponse
-                        {
-                            firstName = userData.firstName,
-                            lastName = userData.lastName,
-                            token = sessionToken
-                        };
-                        //response.Statuscode = (Convert.ToInt32(HttpStatusCode.OK));
-                        response.Data = res;
-                        //response.Success = true;
-                        return response;
-
-                    //}
+                    var userData = await _appDataContext.UsersData.Where(x => x.UserEmailId == request.UserEmail).FirstOrDefaultAsync();
+                    sessionToken = _jwtSigner.GenerateJwtToken(userData.UserId.ToString(), new List<string> { "User" });                        
+                    login.SessionToken = sessionToken;
+                    login.Status = LoginStatus.completed;
+                    login.LoggedInAt = DateTime.Now;
+                    _appDataContext.Update(login);
+                    await _appDataContext.SaveChangesAsync();
+                    var res = new AuthUserResponse
+                    {
+                        FirstName = userData.FirstName,
+                        LastName = userData.LastName,
+                        Token = sessionToken,
+                    };
+                    response.Data = res;
+                    return response;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
-                //response.Statuscode = (Convert.ToInt32(HttpStatusCode.InternalServerError));
-                //response.Success = false;
-                //response.Message = ex.Message;
+                throw;
             }
-            return response;
         }
     }
 }

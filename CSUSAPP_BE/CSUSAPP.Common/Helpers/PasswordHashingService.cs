@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Common.Helpers
 {
+    /// <summary>
+    /// Represents a service for hashing passwords using SHA-256 with a salt.
+    /// </summary>
     public class PasswordHashingService
     {
+        /// <summary>
+        /// Hashes the password using SHA-256 algorithm with a salt.
+        /// </summary>
+        /// <param name="password">password.</param>
+        /// <param name="salt">salt.</param>
+        /// <returns>It returns string.</returns>
         public string HashPassword(string password, string salt)
         {
             // Combine the password and salt
@@ -25,19 +30,31 @@ namespace CSUSAPP.Common.Helpers
                 {
                     builder.Append(b.ToString("x2"));
                 }
+
                 return builder.ToString();
             }
         }
 
+        /// <summary>
+        /// Verifies the entered password against the stored hash and salt.
+        /// </summary>
+        /// <param name="enteredPassword">enteredPassword.</param>
+        /// <param name="storedHash">storedHash.</param>
+        /// <param name="salt">salt.</param>
+        /// <returns>It verifies password.</returns>
         public bool VerifyPassword(string enteredPassword, string storedHash, string salt)
         {
             // Hash the entered password with the same salt
-            string enteredPasswordHash = HashPassword(enteredPassword, salt);
+            string enteredPasswordHash = this.HashPassword(enteredPassword, salt);
 
             // Compare the hashed password with the stored hash
             return enteredPasswordHash == storedHash;
         }
 
+        /// <summary>
+        /// Generates a random salt for password hashing.
+        /// </summary>
+        /// <returns>It returns Salt.</returns>
         public string GenerateSalt()
         {
             // Generate a random salt
@@ -46,6 +63,7 @@ namespace CSUSAPP.Common.Helpers
             {
                 rng.GetBytes(saltBytes);
             }
+
             return Convert.ToBase64String(saltBytes);
         }
     }

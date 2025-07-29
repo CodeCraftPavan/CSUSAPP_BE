@@ -1,25 +1,41 @@
-﻿using CSUSAPP.Common.Auth;
+﻿// <copyright file="SoldServicesServiceController.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.Auth;
 using CSUSAPP.Common.Helpers;
 using CSUSAPP.Services.DTO;
 using CSUSAPP.Services.Interfaces;
-using CSUSAPP.Services.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CSUSAPP.API.Controllers
 {
+    /// <summary>
+    /// Controller for managing sold services operations such as adding and editing sold services for customers.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class SoldServicesServiceController : ControllerBase
     {
         private readonly ISoldServicesService _soldServicesService;
         private readonly IAuthUser _authUser;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SoldServicesServiceController"/> class.
+        /// </summary>
+        /// <param name="soldServicesService">soldServicesService.</param>
+        /// <param name="authUser">authUser.</param>
         public SoldServicesServiceController(ISoldServicesService soldServicesService, IAuthUser authUser)
         {
             _soldServicesService = soldServicesService;
             _authUser = authUser;
         }
 
+        /// <summary>
+        /// Adds a new sold service for a customer.
+        /// </summary>
+        /// <param name="request">request.</param>
+        /// <returns>It returns API response.</returns>
         [HttpPost("Add-Sold-Service")]
         [Authorize]
         public async Task<object> AddServiceToCustomer(SoldServiceDTO request)
@@ -29,6 +45,11 @@ namespace CSUSAPP.API.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits an existing sold service for a customer.
+        /// </summary>
+        /// <param name="request">request.</param>
+        /// <returns>It returns API response.</returns>
         [HttpPost("Edit-Sold-Service")]
         [Authorize]
         public async Task<object> EditServiceToCustomer(SoldServiceDTO request)

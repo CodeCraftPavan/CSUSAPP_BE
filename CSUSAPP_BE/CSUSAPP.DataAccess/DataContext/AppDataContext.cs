@@ -1,16 +1,25 @@
-﻿using CSUSAPP.DataAccess.Entities;
+﻿// <copyright file="AppDataContext.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.DataAccess.DataContext
 {
+    /// <summary>
+    /// Represents the application data context for Entity Framework Core.
+    /// </summary>
     public class AppDataContext : DbContext
     {
-        public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppDataContext"/> class with the specified options.
+        /// </summary>
+        /// <param name="options">options.</param>
+        public AppDataContext(DbContextOptions<AppDataContext> options)
+            : base(options)
+        {
+        }
 
         public DbSet<UsersData> UsersData { get; set; }
         public DbSet<LoginDetails> LoginDetails { get; set; }
@@ -18,6 +27,11 @@ namespace CSUSAPP.DataAccess.DataContext
         public DbSet<SoldService> SoldServices { get; set; }
         public DbSet<Associates> Associates { get; set; }
         public DbSet<Services> Services { get; set; }
+
+        /// <summary>
+        /// Configures the database context options for the application.
+        /// </summary>
+        /// <param name="optionsBuilder">optionsBuilder.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -28,6 +42,10 @@ namespace CSUSAPP.DataAccess.DataContext
             }
         }
 
+        /// <summary>
+        /// Configures the model for the application data context.
+        /// </summary>
+        /// <param name="modelBuilder">modelBuilder.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerDetails>()

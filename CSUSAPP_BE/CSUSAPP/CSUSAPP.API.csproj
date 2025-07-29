@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>045a1c3b-8fb7-4b01-a055-1f5c86c62061</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
@@ -20,6 +21,10 @@
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
@@ -27,5 +32,7 @@
     <ProjectReference Include="..\CSUSAPP.DataAccess\CSUSAPP.DataAccess.csproj" />
     <ProjectReference Include="..\CSUSAPP.Services\CSUSAPP.Services.csproj" />
   </ItemGroup>
-
+    <ItemGroup>
+	    <AdditionalFiles Include="stylecop.json" />
+    </ItemGroup>
 </Project>

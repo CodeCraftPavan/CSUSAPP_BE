@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -22,5 +23,8 @@
     <ProjectReference Include="..\CSUSAPP.Common\CSUSAPP.Common.csproj" />
     <ProjectReference Include="..\CSUSAPP.DataAccess\CSUSAPP.DataAccess.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="stylecop.json" />
+	</ItemGroup>
 
 </Project>

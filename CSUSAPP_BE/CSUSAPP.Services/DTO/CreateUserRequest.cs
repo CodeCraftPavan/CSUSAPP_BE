@@ -1,18 +1,39 @@
-﻿using CSUSAPP.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="CreateUserRequest.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.DataAccess.Entities;
 
 namespace CSUSAPP.Services.DTO
 {
+    /// <summary>
+    /// Represents the request to create a new user.
+    /// </summary>
     public class CreateUserRequest
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public Roles roles { get; set; }
-        public string userEMailId { get; set; }
-        public string password { get; set; }
+        /// <summary>
+        /// Gets or sets the FirstName for the user.
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the LastName for the user.
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the roles for the user.
+        /// </summary>
+        public Roles Roles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UserEmailId for the user.
+        /// </summary>
+        public string UserEmailId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Password for the user.
+        /// </summary>
+        public string Password { get; set; }
     }
 }

@@ -1,4 +1,8 @@
-﻿using CSUSAPP.Common.DTO;
+﻿// <copyright file="UserService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.DTO;
 using CSUSAPP.Common.Helpers;
 using CSUSAPP.DataAccess.DataContext;
 using CSUSAPP.DataAccess.Entities;
@@ -6,81 +10,76 @@ using CSUSAPP.Services.DTO;
 using CSUSAPP.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Services.Services
 {
+    /// <summary>
+    /// /// Implementation of the IUser Service..
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly AppDataContext _appDataContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserService"/> class with a specified role.
+        /// </summary>
+        /// <param name="appDataContext">appDataContext.</param>
         public UserService(AppDataContext appDataContext)
         {
             _appDataContext = appDataContext;
         }
+
+        /// <inheritdoc/>
         public async Task<ApiResponse> CreateUser(CreateUserRequest request)
         {
             var response = new ApiResponse();
             try
             {
-                if (request == null) throw new ArgumentNullException();
-                var userEmailCheck = await _appDataContext.UsersData.Where(x => x.userEMailId == request.userEMailId).Select(x => x.userEMailId).FirstOrDefaultAsync();
+                if (request == null)
+                {
+                    throw new ArgumentNullException();
+                }
 
-                //var emailVerificationCheck = await _otpRepository.Find().Where(x => x.Email == request.userEMailId).FirstOrDefaultAsync();
+                var userEmailCheck = await _appDataContext.UsersData.Where(x => x.UserEmailId == request.UserEmailId).Select(x => x.UserEmailId).FirstOrDefaultAsync();                
                 if (!string.IsNullOrEmpty(userEmailCheck))
                 {
                     throw new Exception("User with this EmailId is already generated. please sign in.");
                 }
-                //if (emailVerificationCheck == null)
-                //{
-                //    throw new Exception("Email UserId is not verified.");
-                //}
                 else
                 {
-                    if (request.userEMailId.IsNullOrEmpty() || request.firstName.IsNullOrEmpty() || request.lastName.IsNullOrEmpty())
+                    if (request.UserEmailId.IsNullOrEmpty() || request.FirstName.IsNullOrEmpty() || request.LastName.IsNullOrEmpty())
                     {
                         throw new Exception("Please enter all the details.");
                     }
+
                     var newUser = new UsersData();
-                    
-                    newUser.firstName = request.firstName;
-                    newUser.lastName = request.lastName;
-                    newUser.userEMailId = request.userEMailId;
-                    newUser.roles = request.roles;
+                    newUser.FirstName = request.FirstName;
+                    newUser.LastName = request.LastName;
+                    newUser.UserEmailId = request.UserEmailId;
+                    newUser.Roles = request.Roles;
                     var cu = new PasswordHashingService();
                     var salt = cu.GenerateSalt();
-                    var strPwd = cu.HashPassword(request.password, salt);
+                    var strPwd = cu.HashPassword(request.Password, salt);
 
-                    newUser.password = strPwd;
-                    newUser.salt = salt;
+                    newUser.Password = strPwd;
+                    newUser.Salt = salt;
                     _appDataContext.UsersData.Add(newUser);
                     await _appDataContext.SaveChangesAsync();
-
-
                     var newLogin = new LoginDetails();
-                    newLogin.EmailId = request.userEMailId;
-                    newLogin.Status = LoginStatus.pending;
+                    newLogin.EmailId = request.UserEmailId;
+                    newLogin.Status = LoginStatus.Pending;
                     _appDataContext.LoginDetails.Add(newLogin);
                     await _appDataContext.SaveChangesAsync();
-                    response.Statuscode = (Convert.ToInt32(HttpStatusCode.OK));
+                    response.Statuscode = Convert.ToInt32(HttpStatusCode.OK);
                     response.Success = true;
                     return response;
                 }
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
-                //response.Statuscode = (Convert.ToInt32(HttpStatusCode.InternalServerError));
-                //response.Data = request;
-                //response.Success = false;
-                //response.Message = ex.Message;
+                throw;
             }
-            return response;
         }
     }
 }

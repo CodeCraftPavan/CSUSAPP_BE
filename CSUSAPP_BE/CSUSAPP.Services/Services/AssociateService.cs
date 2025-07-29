@@ -1,32 +1,43 @@
-﻿using CSUSAPP.Common.DTO;
+﻿// <copyright file="AssociateService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.DTO;
 using CSUSAPP.DataAccess.DataContext;
 using CSUSAPP.DataAccess.Entities;
 using CSUSAPP.Services.DTO;
 using CSUSAPP.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Services.Services
 {
+    /// <summary>
+    /// Implementation of the IAssociate Service.
+    /// </summary>
     public class AssociateService : IAssociateService
     {
         private readonly AppDataContext _appDataContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssociateService"/> class.
+        /// </summary>
+        /// <param name="appDataContext">appDataContext.</param>
         public AssociateService(AppDataContext appDataContext)
         {
             _appDataContext = appDataContext;
         }
 
+        /// <inheritdoc/>
         public async Task<ApiResponse> AddAssociatesServices(AssociateDTO request, Guid userId)
         {
             try
             {
-                if (request == null) throw new ArgumentNullException(nameof(request));
+                if (request == null)
+                {
+                    throw new ArgumentNullException(nameof(request));
+                }
+
                 var addAssociates = new Associates();
                 addAssociates.AssociateName = request.AssociateName;
                 addAssociates.Role = request.Roles;
@@ -39,22 +50,26 @@ namespace CSUSAPP.Services.Services
                 {
                     Statuscode = Convert.ToInt32(HttpStatusCode.OK),
                     Data = addAssociates,
-                    Success = true
+                    Success = true,
                 };
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-
         }
 
+        /// <inheritdoc/>
         public async Task<ApiResponse> EditAssociatesServices(AssociateDTO request, Guid userId)
         {
             try
             {
-                if (request == null) throw new ArgumentNullException(nameof(request));
+                if (request == null)
+                {
+                    throw new ArgumentNullException(nameof(request));
+                }
+
                 var addSoldeServices = new SoldService();
                 var customer = await _appDataContext.CustomerDetails.Where(x => x.Id == request.CustomerId).FirstOrDefaultAsync();
                 var existingAssociate = await _appDataContext.Associates
@@ -73,19 +88,19 @@ namespace CSUSAPP.Services.Services
                     _appDataContext.Update(existingAssociate);
                     _appDataContext.SaveChanges();
                 }
+
                 var response = new ApiResponse()
                 {
                     Statuscode = Convert.ToInt32(HttpStatusCode.OK),
                     Data = addSoldeServices,
-                    Success = true
+                    Success = true,
                 };
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-
         }
     }
 }

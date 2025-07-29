@@ -1,25 +1,34 @@
-﻿using CSUSAPP.Common.DTO;
+﻿// <copyright file="SoldServicesService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.DTO;
 using CSUSAPP.DataAccess.DataContext;
 using CSUSAPP.DataAccess.Entities;
 using CSUSAPP.Services.DTO;
 using CSUSAPP.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Services.Services
 {
+    /// <summary>
+    /// Implementation of the ISoldService Service.
+    /// </summary>
     public class SoldServicesService : ISoldServicesService
     {
         private readonly AppDataContext _appDataContext;
-        public SoldServicesService(AppDataContext appDataContext) 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SoldServicesService"/> class with the specified application data context.
+        /// </summary>
+        /// <param name="appDataContext">appDataContext.</param>
+        public SoldServicesService(AppDataContext appDataContext)
         {
             _appDataContext = appDataContext;
         }
+
+        /// <inheritdoc/>
         public async Task<ApiResponse> AddSoldServices(SoldServiceDTO request, Guid userId)
         {
             try
@@ -41,6 +50,7 @@ namespace CSUSAPP.Services.Services
                     await _appDataContext.AddAsync(addSoldeServices);
                     _appDataContext.SaveChanges();
                 }
+
                 var response = new ApiResponse()
                 {
                     Statuscode = Convert.ToInt32(HttpStatusCode.OK),
@@ -48,13 +58,13 @@ namespace CSUSAPP.Services.Services
                 };
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-            
         }
 
+        /// <inheritdoc/>
         public async Task<ApiResponse> EditSoldServices(SoldServiceDTO request, Guid userId)
         {
             try
@@ -78,19 +88,19 @@ namespace CSUSAPP.Services.Services
                     _appDataContext.Update(soldService);
                     _appDataContext.SaveChanges();
                 }
+
                 var response = new ApiResponse()
                 {
                     Statuscode = Convert.ToInt32(HttpStatusCode.OK),
                     Data = addSoldeServices,
-                    Success = true
+                    Success = true,
                 };
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-
         }
     }
 }

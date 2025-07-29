@@ -1,15 +1,22 @@
-﻿using CSUSAPP.Common.DTO;
+﻿// <copyright file="IUserService.cs" company="Canarys Automations Ltd">
+// Copyright (c) Canarys Automations Ltd. All rights reserved.
+// </copyright>
+
+using CSUSAPP.Common.DTO;
 using CSUSAPP.Services.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSUSAPP.Services.Interfaces
 {
+    /// <summary>
+    /// Interface for User Service.
+    /// </summary>
     public interface IUserService
     {
-        public  Task<ApiResponse> CreateUser(CreateUserRequest request);
+        /// <summary>
+        /// Create User.
+        /// </summary>
+        /// <param name="request">request.</param>
+        /// <returns>It returns ApiResponse.</returns>
+        public Task<ApiResponse> CreateUser(CreateUserRequest request);
     }
 }
